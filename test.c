@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaunch <hlaunch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaunch <marvin@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 01:28:55 by hlaunch           #+#    #+#             */
-/*   Updated: 2022/01/12 21:48:31 by hlaunch          ###   ########.fr       */
+/*   Updated: 2022/01/13 17:49:49 by hlaunch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 		
 	}
 }*/
-
 int main(int argc, char **argv, const char **env)
 {
 	pid_t	cmd1;
@@ -38,7 +37,6 @@ int main(int argc, char **argv, const char **env)
 		return (-1);
 	arg[0] = "sh";
 	arg[1] = "-c";
-	arg[2] = argv[2];
 	arg[3] = 0;
 	if (pipe(fifo) == -1)
 	{
@@ -48,19 +46,22 @@ int main(int argc, char **argv, const char **env)
 	cmd1 = fork();
 	if (!cmd1)
 	{
+		arg[2] = argv[2];
 		fd = open(argv[1], O_RDONLY);
 		dup2(fd, STDIN_FILENO);
-		dup2(fifo[0], STDOUT_FILENO);
+		dup2(fifo[1], STDOUT_FILENO);
 		close(fifo[0]);
 		close(fifo[1]);
-		execve("/bin/sh", arg,(char *const *) env);
+		execve("/bin/sh", arg, (char *const *) env);
 	}
 	cmd2 = fork();
 	if (!cmd2)
 	{
-		fd = open(argv[4], O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		arg[2] = argv[3];
+		fd = open(argv[4], O_CREAT | O_WRONLY, S_IRUSR
+				| S_IWUSR | S_IRGRP | S_IROTH);
 		dup2(fifo[0], STDIN_FILENO);
-		dup2();
+		dup2(fd, STDOUT_FILENO);
 		close(fifo[0]);
 		close(fifo[1]);
 		execve("/bin/sh", arg, (char *const *) env);
