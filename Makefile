@@ -5,7 +5,7 @@ SRCS = test.c
 
 OBJ = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 all: $(NAME)
 

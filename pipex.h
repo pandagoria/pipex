@@ -19,6 +19,14 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/errno.h>
 # include "libft/libft.h"
+
+typedef struct s_child {
+	char    *path;
+	char    **cmd;
+	pid_t   pid;
+	int     *fifo;
+}   t_child;
 
 #endif
