@@ -1,16 +1,16 @@
 
 NAME = pipex
 
-SRCS = test.c
+SRCS = main.c utils.c \
 
 OBJ = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-%.o: %.c pipex.h
-	$(CC)  $(FLAGS) -c $< -o $@ -I pipex.h
+%.o: %.c pipex.h Makefile
+	$(CC)  $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
 	make -C ./libft/
@@ -25,3 +25,5 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 	make fclean -C  ./libft/
+
+.PHONY: clean fclean re all

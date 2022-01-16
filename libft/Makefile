@@ -30,14 +30,12 @@ OBJ_BON = $(SRCS_BON:.c=.o)
 
 SRC_D =	$(SRCS:.c=.d) $(SRCS_BON:.c=.d)
 
-LIB_H =  libft.h
-
 CC =	gcc
 
 FLAGS =	-MMD -Wall -Werror -Wextra
 
-.c.o:
-	$(CC) $(FLAGS) -c $< -o ${<:.c=.o} -I $(LIB_H)
+.c.o: libft.h Makefile
+	$(CC) $(FLAGS) -c $< -o ${<:.c=.o}
 
 all:	$(NAME)
 

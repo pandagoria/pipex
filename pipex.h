@@ -23,10 +23,15 @@
 # include "libft/libft.h"
 
 typedef struct s_child {
-	char    *path;
-	char    **cmd;
-	pid_t   pid;
-	int     *fifo;
-}   t_child;
+	char	*path;
+	char	**cmd;
+	pid_t	pid;
+	int		fifo[2][2];
+	int		cur_pipe;
+	int		i;
+}	t_child;
+
+char	*get_path(char *argv, const char **env, t_child *child);
+void	child_free(char *str, char **mat);
 
 #endif
