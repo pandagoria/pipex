@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pndgoria <pndgoria@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlaunch <hlaunch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:24:22 by pndgoria          #+#    #+#             */
 /*   Updated: 2022/01/13 17:24:22 by pndgoria         ###   ########.fr       */
@@ -33,5 +33,7 @@ typedef struct s_child {
 
 char	*get_path(char *argv, const char **env, t_child *child);
 void	child_free(char *str, char **mat);
+void	wait_for_child(int argc);
+void	error_management(const char *error_msg);
 
 #endif

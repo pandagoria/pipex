@@ -22,12 +22,6 @@ void	init_fifo(t_child *child)
 	child->i = 2;
 }
 
-void	error_management(const char *error_dscrpt)
-{
-	perror(error_dscrpt);
-	exit(2);
-}
-
 void	inout_files(char *file, char flag)
 {
 	int	fd;
@@ -68,10 +62,10 @@ void	exec_cmds(char **argv, const char **env, int argc, t_child *ch)
 	if (ch->i == argc - 2)
 		inout_files(argv[argc - 1], 'o');
 	ch->path = get_path(argv[ch->i], env, ch);
-	if (ch->cmd[0] == NULL)
+	if (ch->cmd[0] == NULL || ch->path == NULL)
 		error_management("execve");
 	if (execve(ch->path, ch->cmd, (char *const *) env) == -1)
-		exit(5);
+		error_management("execve");
 	child_free(ch->path, ch->cmd);
 }
 
@@ -100,6 +94,6 @@ int	main(int argc, char **argv, const char **env)
 		child.i++;
 	}
 	close(child.fifo[1 - child.cur_pipe][0]);
-	waitpid(-1, 0, 0);
+	wait_for_child(argc);
 	return (0);
 }

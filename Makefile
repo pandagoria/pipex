@@ -1,7 +1,7 @@
 
 NAME = pipex
 
-SRCS = main.c utils.c \
+SRCS = main.c utils.c parse_cmds_path.c \
 
 OBJ = $(SRCS:.c=.o)
 
@@ -26,4 +26,4 @@ fclean: clean
 	rm -rf $(NAME)
 	make fclean -C  ./libft/
 
-.PHONY: clean fclean re all
+.PHONY: cat clean fclean re all
