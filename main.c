@@ -75,7 +75,7 @@ int	main(int argc, char **argv, const char **env)
 
 	if (argc < 5)
 	{
-		write(1, "Error: Too few arguments", 25);
+		write(1, "Error: Too few arguments\n", 26);
 		return (-1);
 	}
 	init_fifo(&child);
